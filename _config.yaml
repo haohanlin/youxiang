@@ -76,9 +76,9 @@ group_helper_conf:
 
 taobao:
   is_open: True
-  app_key: ''
-  app_secret: ''
-  adzone_id: ''
+  app_key: '31042817'
+  app_secret: 'dc1d21d4ebedf0c056f8f9fbf0c0a932'
+  adzone_id: '1995400300'
   chat_groups:
     - {group_name: '淘宝天猫内部优惠群-综合类①', group_material_id: '3756,28026,27446,13366,3786', minute: '15,45', hour: '7-23'}
     - {group_name: '淘宝内部优惠群-潮流范①', group_material_id: '4093', minute: '20', hour: '7-23'}

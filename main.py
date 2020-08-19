@@ -6,6 +6,8 @@
 
 """
 from chat.wechat import *
+from display.dialog import *
 
 if __name__ == '__main__':
-    run()
+    #run()
+    get_discountCoupon()
