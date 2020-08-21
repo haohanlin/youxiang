@@ -31,8 +31,6 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
         print("输出json数据:----------------------- whx4")
         #print(json_data)
         for item in json_data:
-            #print("输出json数据:")
-            #print(json_data)
             count += 1
             if str(item).find("coupon_share_url") > -1:
                 coupon_share_url = "https:" + item['coupon_share_url']
@@ -43,11 +41,15 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 filename = save_pic(pict_url, item_id)
                 zk_final_price = item['zk_final_price']
                 # 发送图片
-                itchat.send('@img@%s' % (f'''{filename}'''), group_name)
-
-                itchat.send(f''' {title} \n【在售价】¥{zk_final_price}\n【券后价】¥{round(float(zk_final_price) - float(coupon_amount),
-                                                                            2)}\n-----------------\n復製評论({tb_client.taobao_tbk_tpwd_create(
-                    title, coupon_share_url)})，去【tao寶】下单\n''', group_name)
+                #itchat.send('@img@%s' % (f'''{filename}'''), group_name)
+                print(title)
+                print('【在售价】¥')
+                print(zk_final_price)
+                print('【券后价】¥' )
+                print(round(float(zk_final_price) - float(coupon_amount)))
+                #itchat.send(f''' {title} \n【在售价】¥{zk_final_price}\n【券后价】¥{round(float(zk_final_price) - float(coupon_amount),
+                #                                                            2)}\n-----------------\n復製評论({tb_client.taobao_tbk_tpwd_create(
+                #    title, coupon_share_url)})，去【tao寶】下单\n''', group_name)
 
                 time.sleep(2)
                 del_pic(filename)
@@ -57,12 +59,14 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 item_id = item['item_id']
                 pict_url = "https:" + str(item['pict_url'])
                 zk_final_price = item['zk_final_price']
-                print(pict_url)
                 filename = save_pic(pict_url, item_id)
-                itchat.send('@img@%s' % (f'''{filename}'''), group_name)
-                itchat.send(
-                    f'''{title} \n【在售价】¥{zk_final_price}\n-----------------\n復製評论({tb_client.taobao_tbk_tpwd_create(
-                        title, click_url)})，去【tao寶】下单\n''', group_name)
+                #itchat.send('@img@%s' % (f'''{filename}'''), group_name)
+                print(title)
+                print('【在售价】¥')
+                print(zk_final_price)
+                #itchat.send(
+                #    f'''{title} \n【在售价】¥{zk_final_price}\n-----------------\n復製評论({tb_client.taobao_tbk_tpwd_create(
+                #        title, click_url)})，去【tao寶】下单\n''', group_name)
                 time.sleep(2)
                 del_pic(filename)
     except Exception as e:
