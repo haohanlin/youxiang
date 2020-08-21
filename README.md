@@ -107,6 +107,7 @@
 申请淘宝联盟api：
 [申请地址](https://pub.alimama.com/?spm=a219t.7664554.a214tr8.19.2f5835d9zBLGBR)
 [文档参考](https://open.taobao.com/doc.htm?docId=73&docType=1)
+[文档参考](https://open.taobao.com/api.htm?spm=a2e0r.13193907.0.0.79b024adk44it3&docId=24518&docType=2)
 
 努力看文档操作，获取到 `App Key` 和 `App Secret`，同时利用商品推广得到 广告位 `adzone_id`
 
