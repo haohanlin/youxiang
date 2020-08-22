@@ -20,6 +20,10 @@
 
 项目主要参考 [EverydayWechat](https://github.com/sfyc23/EverydayWechat)
 
+## WEB微信有些用户登录不了切换接口
+(http://docs.wechatpy.org/zh_CN/stable/install.html)
+
+
 -  支持对多个微信好友自动回复。  （保留原[EverydayWechat](https://github.com/sfyc23/EverydayWechat)功能，自动回复仅保留**智能闲聊（腾讯）**）
 -  群助手功能，仅保留进群自动回复及@时自动回复功能。
 -  淘宝优惠券自动分发。 
