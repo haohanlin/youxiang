@@ -42,11 +42,15 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 zk_final_price = item['zk_final_price']
                 # 发送图片
                 #itchat.send('@img@%s' % (f'''{filename}'''), group_name)
+                print('START_###################################')
                 print(title)
                 print('【在售价】¥')
                 print(zk_final_price)
                 print('【券后价】¥' )
                 print(round(float(zk_final_price) - float(coupon_amount)))
+                print('淘宝下单链接')
+                print(tb_client.taobao_tbk_tpwd_create(title, coupon_share_url))
+                print('END_################START###################')
                 #itchat.send(f''' {title} \n【在售价】¥{zk_final_price}\n【券后价】¥{round(float(zk_final_price) - float(coupon_amount),
                 #                                                            2)}\n-----------------\n復製評论({tb_client.taobao_tbk_tpwd_create(
                 #    title, coupon_share_url)})，去【tao寶】下单\n''', group_name)
@@ -61,9 +65,13 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 zk_final_price = item['zk_final_price']
                 filename = save_pic(pict_url, item_id)
                 #itchat.send('@img@%s' % (f'''{filename}'''), group_name)
+                print('START_###################################')
                 print(title)
                 print('【在售价】¥')
                 print(zk_final_price)
+                print('淘宝下单链接')
+                print(tb_client.taobao_tbk_tpwd_create(title, click_url))
+                print('END_################START###################')
                 #itchat.send(
                 #    f'''{title} \n【在售价】¥{zk_final_price}\n-----------------\n復製評论({tb_client.taobao_tbk_tpwd_create(
                 #        title, click_url)})，去【tao寶】下单\n''', group_name)
