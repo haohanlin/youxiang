@@ -4,6 +4,7 @@ import itchat
 import random
 from untils.common import save_pic, del_pic
 from untils.tb_top_api import TbApiClient
+from PIL import Image, ImageDraw, ImageFont
 
 def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone_id):
     '''
@@ -43,18 +44,32 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 # 发送图片
                 #itchat.send('@img@%s' % (f'''{filename}'''), group_name)
                 print('START_###################################')
-                print(title)
-                print('【在售价】¥')
-                print(zk_final_price)
-                print('【券后价】¥' )
-                print(round(float(zk_final_price) - float(coupon_amount)))
-                print('淘宝下单链接')
-                print(tb_client.taobao_tbk_tpwd_create(title, coupon_share_url))
-                print('END_################START###################')
+
                 #itchat.send(f''' {title} \n【在售价】¥{zk_final_price}\n【券后价】¥{round(float(zk_final_price) - float(coupon_amount),
                 #                                                            2)}\n-----------------\n復製評论({tb_client.taobao_tbk_tpwd_create(
                 #    title, coupon_share_url)})，去【tao寶】下单\n''', group_name)
+                text_title = list(title)#title.lnsert(15,'\n')
+                text_title.insert(15,'\n')
+                title = "".join(text_title)
+                text_he = "【在售价】￥" + str(zk_final_price) + '\n'
+                text_he = text_he + "【券后价】￥" + str(round(float(zk_final_price) - float(coupon_amount))) + '\n'
+                text_he = text_he + tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)
+                img = Image.open(filename) #打开图片
+                img_copy = img.copy()   #拷贝图片
+                imghead =  Image.new("RGB", (img.size[0],img.size[1]+200), "#FFFFFF")  #创建一个纯白图片
+                imghead.paste(img_copy,(0,0))   #把拷贝的图片粘贴到纯白的图片
+                draw = ImageDraw.Draw(imghead)  #把图片放进区域
+                typeface = ImageFont.truetype('simkai.ttf',size=30)  #设置字体
+                draw.text((10,img.size[1]+10),title,fill=(0, 0, 1),font=typeface) #写入字
 
+                typeface2 = ImageFont.truetype('simkai.ttf',size=40)  #设置字体
+                draw.text((10,img.size[1]+80),text_he,fill=(250, 0, 1),font=typeface2) #写入字
+                print(title) 
+                print(text_he) 
+                filenamehead = 'imag' + filename[6:]  
+                #imghead.show()
+                imghead.save(filenamehead)  #保存
+                print('END_###################################')
                 time.sleep(2)
                 del_pic(filename)
             else:
@@ -71,12 +86,12 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 print(zk_final_price)
                 print('淘宝下单链接')
                 print(tb_client.taobao_tbk_tpwd_create(title, click_url))
-                print('END_################START###################')
+                print('END_###################################')
                 #itchat.send(
                 #    f'''{title} \n【在售价】¥{zk_final_price}\n-----------------\n復製評论({tb_client.taobao_tbk_tpwd_create(
                 #        title, click_url)})，去【tao寶】下单\n''', group_name)
                 time.sleep(2)
-                del_pic(filename)
+                #del_pic(filename)
     except Exception as e:
         print(e)
         tb_share_text(group_name, material_id, app_key, app_secret, adzone_id)

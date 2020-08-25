@@ -59,8 +59,8 @@ def save_pic(img_url, item_id):
         file_suffix = os.path.splitext(img_url)[1]
         # print(file_suffix)
         # 拼接图片名（包含路径）
-        filename = f'''tb_{datetime.datetime.now().strftime("%y%m%d-%H%M%S")}_{item_id}{file_suffix}'''
-        # print(filename)
+        filename = "images/tb_" + datetime.datetime.now().strftime("%y%m%d-%H%M%S") + file_suffix
+        print(filename)
         # 下载图片，并保存到文件夹中
         urllib.request.urlretrieve(img_url, filename=filename)
         print(f'''图片下载成功：{filename}''')
