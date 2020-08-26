@@ -2,9 +2,11 @@ import time
 import json
 import itchat
 import random
+import qrcode
 from untils.common import save_pic, del_pic
 from untils.tb_top_api import TbApiClient
 from PIL import Image, ImageDraw, ImageFont
+
 
 def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone_id):
     '''
@@ -41,6 +43,7 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 item_id = item['item_id']
                 filename = save_pic(pict_url, item_id)
                 zk_final_price = item['zk_final_price']
+                coupon_share_url_1 = item['coupon_share_url']
                 # 发送图片
                 #itchat.send('@img@%s' % (f'''{filename}'''), group_name)
                 print('START_###################################')
@@ -48,6 +51,17 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 #itchat.send(f''' {title} \n【在售价】¥{zk_final_price}\n【券后价】¥{round(float(zk_final_price) - float(coupon_amount),
                 #                                                            2)}\n-----------------\n復製評论({tb_client.taobao_tbk_tpwd_create(
                 #    title, coupon_share_url)})，去【tao寶】下单\n''', group_name)
+                qr = qrcode.QRCode(
+                    error_correction=qrcode.constants.ERROR_CORRECT_L,
+                    box_size=3,
+                )
+                qr.add_data(coupon_share_url_1)
+                qr.make(fit=True)
+                qr_img = qr.make_image()
+                #qr_img.show()
+                qr_img_copy = qr_img.copy()
+                
+
                 text_title = list(title)#title.lnsert(15,'\n')
                 text_title.insert(15,'\n')
                 title = "".join(text_title)
@@ -56,14 +70,15 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 text_he = text_he + tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)
                 img = Image.open(filename) #打开图片
                 img_copy = img.copy()   #拷贝图片
-                imghead =  Image.new("RGB", (img.size[0],img.size[1]+200), "#FFFFFF")  #创建一个纯白图片
+                imghead =  Image.new("RGB", (img.size[0],img.size[1]+270), "#FFFFFF")  #创建一个纯白图片
                 imghead.paste(img_copy,(0,0))   #把拷贝的图片粘贴到纯白的图片
+                imghead.paste(qr_img_copy,(530,img.size[1]))
                 draw = ImageDraw.Draw(imghead)  #把图片放进区域
-                typeface = ImageFont.truetype('simkai.ttf',size=30)  #设置字体
+                typeface = ImageFont.truetype('simkai.ttf',size=33)  #设置字体
                 draw.text((10,img.size[1]+10),title,fill=(0, 0, 1),font=typeface) #写入字
 
-                typeface2 = ImageFont.truetype('simkai.ttf',size=40)  #设置字体
-                draw.text((10,img.size[1]+80),text_he,fill=(250, 0, 1),font=typeface2) #写入字
+                typeface2 = ImageFont.truetype('simkai.ttf',size=50)  #设置字体
+                draw.text((10,img.size[1]+100),text_he,fill=(250, 0, 1),font=typeface2) #写入字
                 print(title) 
                 print(text_he) 
                 filenamehead = 'imag' + filename[6:]  
