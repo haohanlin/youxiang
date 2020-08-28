@@ -9,6 +9,7 @@ opencv_机器学习-图片合成视频
 import cv2
 #读取一张图片
 
+
 def img_to_video():
     img = cv2.imread('imag/tb_200827-150021.jpg')
     #获取当前图片的信息

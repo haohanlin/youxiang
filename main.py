@@ -11,5 +11,5 @@ from untils.video import *
 
 if __name__ == '__main__':
     #run()
-    #get_discountCoupon()
-    img_to_video()
+    get_discountCoupon()
+    #img_to_video()

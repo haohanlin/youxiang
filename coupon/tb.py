@@ -19,7 +19,7 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
     try:
         material_id = str(random.choices(material_id.split(','))[0])
         
-        print(material_id+ "whx1")
+
         print(group_name + "whx2")
         #groups = itchat.search_chatrooms(name=f'''{group_name}''')
         #for room in groups:
@@ -27,11 +27,8 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
         time.sleep(random.randint(1, 5))
         tb_client = TbApiClient(app_key=app_key, secret_key=app_secret, adzone_id=adzone_id)
         res = tb_client.taobao_tbk_dg_optimus_material(material_id)
-        print("输出tb_client数据res:----------------------- whx3")
-        print(repr)
         json_data = json.loads(res)['tbk_dg_optimus_material_response']['result_list']['map_data']
         count = 0
-        print("输出json数据:----------------------- whx4")
         #print(json_data)
         for item in json_data:
             count += 1
