@@ -59,14 +59,14 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 img = Image.open(filename) #打开图片
                 img_copy = img.copy()   #拷贝图片
                 imghead =  Image.new("RGB", (800,1080), "#FFFFFF")  #创建一个纯白图片
-                imghead.paste(img_copy,(0,0))   #把拷贝的图片粘贴到纯白的图片
-                imghead.paste(qr_img_copy,(530,img.size[1]))
+                imghead.paste(img_copy,(0,300))   #把拷贝的图片粘贴到纯白的图片
+                imghead.paste(qr_img_copy,(520,10))
                 draw = ImageDraw.Draw(imghead)  #把图片放进区域
                 typeface = ImageFont.truetype('simkai.ttf',size=33)  #设置字体
-                draw.text((10,img.size[1]+10),title,fill=(0, 0, 1),font=typeface) #写入字
+                draw.text((15,10),title,fill=(0, 0, 1),font=typeface) #写入字
 
                 typeface2 = ImageFont.truetype('simkai.ttf',size=50)  #设置字体
-                draw.text((10,img.size[1]+100),text_he,fill=(250, 0, 1),font=typeface2) #写入字
+                draw.text((10,100),text_he,fill=(250, 0, 1),font=typeface2) #写入字
                 print(title) 
                 print(text_he) 
                 group_name

@@ -6,7 +6,7 @@ from untils.video import *
 
 def get_discountCoupon():
     print("开获取优惠券。。。。")
-    #job_tasks()
+    job_tasks()
     print("获取完成！")
     print('开合成视频')
     img_to_video()

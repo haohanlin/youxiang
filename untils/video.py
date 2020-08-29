@@ -6,7 +6,7 @@ opencv_机器学习-图片合成视频
 3.通过parse方法完成数据的解析拿到单帧视频
 4.imshow，imwrite展示和保存
 '''
-
+from untils.common import save_pic, del_pic
 import cv2,glob,os
 from PIL import Image
 #读取一张图片
@@ -30,7 +30,7 @@ def get_file(root_path,all_files=[],sub_dirpaths = []):
 
 def img_to_video(num = 7):
     
-    path = r'D:\vs_code\youxiang\imag'
+    path = r'F:\vs_code\youxiang\imag'
     filepaths,dirpathlist = get_file(path)
     #print(filepath)
     print(dirpathlist)
@@ -44,7 +44,7 @@ def img_to_video(num = 7):
             img = Image.open(filepath)
             size = img.size  # 大小/尺寸,获取第一张图片的尺寸
             print(size)
-            videpath = path + '\\' + '_'.join(dirpath.split('\\')[-2:]) + '.mp4'
+            videpath = path + '\\' + '_'.join(dirpath.split('\\')[-2:]) + '.avi'
             videoWriter = cv2.VideoWriter(videpath, fourcc, fps, size)#视频按照图片尺寸合成
             imgpaths = dirpath + '/*.jpg'
             imgs = glob.glob(imgpaths)
@@ -53,9 +53,13 @@ def img_to_video(num = 7):
                     frame = cv2.imread(imgname)
                     videoWriter.write(frame)
             videoWriter.release()
-            del_pic(imgname)
-        else:
-            continue
+            #del_pic(imgname)
+    print('whx---------------')
+    cv2.destroyAllWindows()
+    for fileimg in filepaths:
+        if('avi' not in fileimg):
+            print(fileimg)
+            del_pic(fileimg)
 
 
 
