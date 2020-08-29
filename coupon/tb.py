@@ -21,15 +21,12 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
         
 
         print(group_name + "whx2")
-        #groups = itchat.search_chatrooms(name=f'''{group_name}''')
-        #for room in groups:
-       #group_name = room['UserName']
+
         time.sleep(random.randint(1, 5))
         tb_client = TbApiClient(app_key=app_key, secret_key=app_secret, adzone_id=adzone_id)
         res = tb_client.taobao_tbk_dg_optimus_material(material_id)
         json_data = json.loads(res)['tbk_dg_optimus_material_response']['result_list']['map_data']
         count = 0
-        #print(json_data)
         for item in json_data:
             count += 1
             if str(item).find("coupon_share_url") > -1:
@@ -41,13 +38,8 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 filename = save_pic(pict_url, item_id)
                 zk_final_price = item['zk_final_price']
                 coupon_share_url_1 = item['coupon_share_url']
-                # 发送图片
-                #itchat.send('@img@%s' % (f'''{filename}'''), group_name)
                 print('START_###################################')
 
-                #itchat.send(f''' {title} \n【在售价】¥{zk_final_price}\n【券后价】¥{round(float(zk_final_price) - float(coupon_amount),
-                #                                                            2)}\n-----------------\n復製評论({tb_client.taobao_tbk_tpwd_create(
-                #    title, coupon_share_url)})，去【tao寶】下单\n''', group_name)
                 qr = qrcode.QRCode(
                     error_correction=qrcode.constants.ERROR_CORRECT_L,
                     box_size=3,
@@ -55,11 +47,10 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 qr.add_data(coupon_share_url_1)
                 qr.make(fit=True)
                 qr_img = qr.make_image()
-                #qr_img.show()
                 qr_img_copy = qr_img.copy()
                 
 
-                text_title = list(title)#title.lnsert(15,'\n')
+                text_title = list(title)
                 text_title.insert(15,'\n')
                 title = "".join(text_title)
                 text_he = "【在售价】￥" + str(zk_final_price) + '\n'
@@ -67,7 +58,7 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 text_he = text_he + tb_client.taobao_tbk_tpwd_create(title, coupon_share_url)
                 img = Image.open(filename) #打开图片
                 img_copy = img.copy()   #拷贝图片
-                imghead =  Image.new("RGB", (img.size[0],img.size[1]+270), "#FFFFFF")  #创建一个纯白图片
+                imghead =  Image.new("RGB", (800,1080), "#FFFFFF")  #创建一个纯白图片
                 imghead.paste(img_copy,(0,0))   #把拷贝的图片粘贴到纯白的图片
                 imghead.paste(qr_img_copy,(530,img.size[1]))
                 draw = ImageDraw.Draw(imghead)  #把图片放进区域
@@ -78,7 +69,8 @@ def tb_share_text(group_name: str, material_id: str, app_key, app_secret, adzone
                 draw.text((10,img.size[1]+100),text_he,fill=(250, 0, 1),font=typeface2) #写入字
                 print(title) 
                 print(text_he) 
-                filenamehead = 'imag' + filename[6:]  
+                group_name
+                filenamehead = 'imag/'+ group_name + filename[6:]  
                 #imghead.show()
                 imghead.save(filenamehead)  #保存
                 print('END_###################################')

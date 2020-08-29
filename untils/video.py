@@ -6,24 +6,56 @@ opencv_机器学习-图片合成视频
 3.通过parse方法完成数据的解析拿到单帧视频
 4.imshow，imwrite展示和保存
 '''
-import cv2
+
+import cv2,glob,os
+from PIL import Image
 #读取一张图片
 
 
-def img_to_video():
-    img = cv2.imread('imag/tb_200827-150021.jpg')
-    #获取当前图片的信息
-    imgInfo = img.shape
-    size = (imgInfo[1],imgInfo[0])
-    print(size)
-    #完成写入对象的创建，第一个参数是合成之后的视频的名称，第二个参数是可以使用的编码器，第三个参数是帧率即每秒钟展示多少张图片，第四个参数是图片大小信息
-    videowrite = cv2.VideoWriter('test.mp4',-1,1,size)
-    for i in range(1,10):
-        fileName = 'imag/tb_200827-15002' + str(i) + '.jpg'
-        img = cv2.imread(fileName)
-        #写入参数，参数是图片编码之前的数据
-        videowrite.write(img)
-    print('end!')
+def get_file(root_path,all_files=[],sub_dirpaths = []):
+    filenames = os.listdir(root_path)
+    #print(filename)
+    for filename in filenames:
+        filepath = os.path.join(root_path,filename)
+        if not os.path.isdir(filepath):# not a dir
+            all_files.append(filepath)
+        else:  # is a dir
+            sub_dirpaths.append(filepath)
+            get_file(filepath,all_files)
+    return all_files,sub_dirpaths
+
+
+
+
+
+def img_to_video(num = 7):
+    
+    path = r'D:\vs_code\youxiang\imag'
+    filepaths,dirpathlist = get_file(path)
+    #print(filepath)
+    print(dirpathlist)
+    for dirpath in dirpathlist[:]:
+        print(dirpath)
+        fps = 1
+        fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+        filenames = os.listdir(dirpath)
+        filepath = os.path.join(dirpath, filenames[0])
+        if os.path.isfile(filepath):
+            img = Image.open(filepath)
+            size = img.size  # 大小/尺寸,获取第一张图片的尺寸
+            print(size)
+            videpath = path + '\\' + '_'.join(dirpath.split('\\')[-2:]) + '.mp4'
+            videoWriter = cv2.VideoWriter(videpath, fourcc, fps, size)#视频按照图片尺寸合成
+            imgpaths = dirpath + '/*.jpg'
+            imgs = glob.glob(imgpaths)
+            for imgname in imgs:
+                for i in range(3):  # 一张图循环7次，fps = 1，一张图停留7s
+                    frame = cv2.imread(imgname)
+                    videoWriter.write(frame)
+            videoWriter.release()
+            del_pic(imgname)
+        else:
+            continue
 
 
 

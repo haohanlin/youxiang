@@ -80,11 +80,16 @@ taobao:
   app_secret: 'dc1d21d4ebedf0c056f8f9fbf0c0a932'
   adzone_id: '110786900145'
   chat_groups:
-    - {group_name: '淘宝天猫内部优惠群-综合类①', group_material_id: '28026', minute: '15,45', hour: '7-23'}
-    - {group_name: '淘宝内部优惠群-家电①', group_material_id: '28027', minute: '20', hour: '7-23'}
-    - {group_name: '数码家优惠券', group_material_id: '	13369,28028', minute: '30', hour: '7-23'}
-    - {group_name: '淘宝内部优惠群-好货类①', group_material_id: '4092,4094', minute: '10,40', hour: '7-23'}
-    - {group_name: '淘宝内部优惠群-零食类①', group_material_id: '27451', minute: '10,40', hour: '7-23'}
+    - {group_name: 'zh', group_material_id: '28026', minute: '15,45', hour: '7-23'}
+    - {group_name: 'jd', group_material_id: '28027', minute: '20', hour: '7-23'}
+    - {group_name: 'sm', group_material_id: '	13369,28028', minute: '30', hour: '7-23'}
+    - {group_name: 'hh', group_material_id: '4092,4094', minute: '10,40', hour: '7-23'}
+    - {group_name: 'lc', group_material_id: '27451', minute: '10,40', hour: '7-23'}
+#- {group_name: '综合', group_material_id: '28026', minute: '15,45', hour: '7-23'}
+#- {group_name: '家电', group_material_id: '28027', minute: '20', hour: '7-23'}
+#- {group_name: '数码', group_material_id: '	13369,28028', minute: '30', hour: '7-23'}
+#- {group_name: '好货', group_material_id: '4092,4094', minute: '10,40', hour: '7-23'}
+#- {group_name: '零食', group_material_id: '27451', minute: '10,40', hour: '7-23'}  
 
 jingdong:
   is_open: False
